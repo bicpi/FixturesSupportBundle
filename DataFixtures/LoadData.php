@@ -29,7 +29,7 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
         foreach ($this->getYamlFiles() as $file) {
             $fixtures = Yaml::parse(file_get_contents($file->getRealpath()));
             foreach ($fixtures as $entityName => $data) {
-                $this->loadEntityFixtures($entityName);
+                $this->loadEntityFixtures($entityName, $data);
             }
         }
     }
@@ -45,7 +45,7 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
         ;
     }
 
-    protected function loadEntityFixtures($entityName)
+    protected function loadEntityFixtures($entityName, array $data)
     {
         $method = 'load'.$entityName;
         if (!method_exists($this, $method)) {
