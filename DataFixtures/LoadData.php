@@ -1,6 +1,6 @@
 <?php
 
-namespace bicpi\YamlFixturesLoaderBundle;
+namespace bicpi\DataFixtures\FixturesSupportBundle;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -38,10 +38,10 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
         }
     }
 
-    public function __call($method)
+    public function __call($method, $arguments)
     {
         if ('load' === substr($method, 0, 4) && 4 < strlen($method)) {
-            $msg = sprintf('Missing implementation for entity "%s"', substr($method, 4));
+            $msg = sprintf('Missing method implementation loadTeam() for entity "%s"', substr($method, 4));
             throw new \LogicException($msg);
         }
     }
