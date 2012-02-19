@@ -48,7 +48,7 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
     protected function loadEntityFixtures($entityName)
     {
         $method = 'load'.$entityName;
-        if (method_exists($this, $method)) {
+        if (!method_exists($this, $method)) {
             $msg = sprintf('Missing method implementation load%s() for entity "%s"', $entityName, $entityName);
             throw new \LogicException($msg);
         }
