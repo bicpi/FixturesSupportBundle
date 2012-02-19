@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This Bundle implements a LoadData class to load entity fixtures by YAML files.
+This Bundle implements a LoadData class to simply fixture loading.
 
 Installation
 ============

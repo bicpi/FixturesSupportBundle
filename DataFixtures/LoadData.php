@@ -13,8 +13,6 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class LoadData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
-    protected $order = 1;
-
     protected $container;
     protected $manager;
 
@@ -26,30 +24,45 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
-        $finder = new Finder();
-        $files = $finder->files()->in($this->getFixturesDir())->name('/.*\.yml$/i')->sortByName();
 
-        foreach ($files as $file) {
+        foreach ($this->getYamlFiles() as $file) {
             $fixtures = Yaml::parse(file_get_contents($file->getRealpath()));
             foreach ($fixtures as $entityName => $data) {
-                $method = sprintf('load%s', (string)$entityName);
-                call_user_func_array(array($this, $method), array($data));
+                $this->loadEntityFixtures($entityName);
             }
         }
     }
 
-    public function __call($method, $arguments)
+    protected function getYamlFiles()
     {
-        if ('load' === substr($method, 0, 4) && 4 < strlen($method)) {
-            $msg = sprintf('Missing method implementation loadTeam() for entity "%s"', substr($method, 4));
-            throw new \LogicException($msg);
-        }
+        $finder = new Finder();
+        return $finder
+            ->files()
+            ->in($this->getFixturesDir())
+            ->name('/.*\.yml$/i')
+            ->sortByName()
+        ;
     }
 
-    abstract public function getFixturesDir(); // return dirname(__DIR__).'/fixtures';
-
-    public function getOrder()
+    protected function loadEntityFixtures($entityName)
     {
-        return $this->order;
+        $method = 'load'.$entityName;
+        if (method_exists($this, $method)) {
+            $msg = sprintf('Missing method implementation load%s() for entity "%s"', $entityName, $entityName);
+            throw new \LogicException($msg);
+        }
+        call_user_func_array(array($this, $method), array($data));
+    }
+
+    /**
+     * @abstract
+     *
+     * Return the directory where your Yaml fixtures live in
+     *
+     * @return string
+     */
+    public function getFixturesDir()
+    {
+        return dirname(__DIR__).'/fixtures';
     }
 }
