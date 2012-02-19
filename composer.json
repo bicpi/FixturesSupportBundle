@@ -2,7 +2,7 @@
     "name": "bicpi/fixtures-support",
     "type": "symfony-bundle",
     "description": "Symfony2 FixturesSupportBundle",
-    "keywords": ["Symfony2,Fixtures"],
+    "keywords": ["Symfony,Fixtures"],
     "homepage": "https://github.com/bicpi",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,12 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "2.*"
+        "doctrine/common": "2.2.*",
+        "doctrine/data-fixtures": "1.0.*",
+        "symfony/dependency-injection": "2.1.*",
+        "symfony/http-kernel": "2.1.*",
+        "symfony/finder": "2.1.*",
+        "symfony/yaml": "2.1.*"
     },
     "autoload": {
         "psr-0": { "bicpi\\FixturesSupportBundle": "" }
