@@ -1,6 +1,6 @@
 <?php
 
-namespace bicpi\Bundle\YamlFixturesLoaderBundle;
+namespace bicpi\YamlFixturesLoaderBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

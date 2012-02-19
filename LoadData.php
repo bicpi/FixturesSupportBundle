@@ -1,18 +1,20 @@
 <?php
 
-namespace bicpi\Bundle\YamlFixturesLoaderBundle;
+namespace bicpi\YamlFixturesLoaderBundle;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
-use Doctrine\Common\Persistence\ObjectManager;
 
 abstract class LoadData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     protected $order = 1;
+
     protected $container;
     protected $manager;
 
@@ -25,7 +27,7 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
     {
         $this->manager = $manager;
         $finder = new Finder();
-        $files = $finder->files()->in(dirname(__DIR__).'/fixtures')->name('/.*\.yml$/i')->sortByName();
+        $files = $finder->files()->in($this->getFixturesDir())->name('/.*\.yml$/i')->sortByName();
 
         foreach ($files as $file) {
             $fixtures = Yaml::parse(file_get_contents($file->getRealpath()));
@@ -35,6 +37,8 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
             }
         }
     }
+
+    abstract public function getFixturesDir(); // return dirname(__DIR__).'/fixtures';
 
     public function getOrder()
     {
