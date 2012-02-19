@@ -1,6 +1,6 @@
 <?php
 
-namespace bicpi\DataFixtures\FixturesSupportBundle;
+namespace bicpi\FixturesSupportBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
