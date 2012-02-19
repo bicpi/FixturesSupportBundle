@@ -61,8 +61,5 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
      *
      * @return string
      */
-    public function getFixturesDir()
-    {
-        return dirname(__DIR__).'/fixtures';
-    }
+    abstract public function getFixturesDir();
 }
