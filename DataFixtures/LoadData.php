@@ -15,6 +15,7 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
 {
     protected $container;
     protected $manager;
+    protected $order = 1;
 
     public function setContainer(ContainerInterface $container = null)
     {
@@ -52,6 +53,16 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
             throw new \LogicException($msg);
         }
         call_user_func_array(array($this, $method), array($data));
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    function getOrder()
+    {
+        return $this->order;
     }
 
     /**
