@@ -38,6 +38,14 @@ abstract class LoadData extends AbstractFixture implements OrderedFixtureInterfa
         }
     }
 
+    public function __call($method)
+    {
+        if ('load' === substr($method, 0, 4) && 4 < strlen($method)) {
+            $msg = sprintf('Missing implementation for entity "%s"', substr($method, 4));
+            throw new \LogicException($msg);
+        }
+    }
+
     abstract public function getFixturesDir(); // return dirname(__DIR__).'/fixtures';
 
     public function getOrder()
