@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony2 FixturesSupportBundle",
     "keywords": ["Symfony,Fixtures"],
-    "homepage": "https://github.com/bicpi",
+    "homepage": "https://github.com/bicpi/FixturesSupportBundle",
     "license": "MIT",
     "authors": [
         {
